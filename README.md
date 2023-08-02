@@ -1,6 +1,5 @@
 # PiIrrigationSystem
 
-![System Diagram](<img width="1778" alt="HardwareSoftware_Architektur" src="https://github.com/Laceleaf/PiIrrigationSystem/assets/76946697/be539199-8ed4-4636-98dd-a67070b39aaf">
-)
+![System Diagram](https://github.com/Laceleaf/PiIrrigationSystem/assets/76946697/695cbb23-541e-4308-85ef-a6e750d4c29d)
 
 
