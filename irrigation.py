@@ -6,6 +6,7 @@
 #Connection for Soil Sensor and Tempearture: I2C
 
 from time import time, sleep, strftime
+from datetime import datetime
 
 import board
 
@@ -73,6 +74,8 @@ def create_connection(irrigation_db):
 if __name__=='__main__':
     create_connection(r"/home/molly/Desktop")
 
+#defining SQLite parameters for quicker coding
+
     while True:
         
         try:
@@ -82,10 +85,13 @@ if __name__=='__main__':
             touch=ss.moisture_read()
             temp=ss.get_temp()
             print("Moisture:" +str(touch))
-            #date=time.strftime("%Y-%m-%d %H:%M:%S")
-            cursor.execute('''
-            INSERT INTO sensordata(plant_id, measured_at) VALUES ('1', CURRENT_TIMESTAMP)
-            ''')
+            taken=datetime.now()
+            takenconvert=taken.strftime("%d-%m-%Y %H:%M:%S")
+            
+            sqlite_insert="""INSERT INTO sensordata (plant_id, soil_capacitive, measured_at) VALUES (?, ?, ?);"""
+
+            sensordata=(1, touch, takenconvert)
+            cursor.execute(sqlite_insert, sensordata)
             conn.commit()
             conn.close()
             sleep(120)
