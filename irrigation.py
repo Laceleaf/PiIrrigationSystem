@@ -10,7 +10,11 @@ from datetime import datetime
 
 import board
 
+import adafruit_sht4x
+import adafruit_tsl2591
+
 from adafruit_seesaw.seesaw import Seesaw
+
 
 import sqlite3
 from sqlite3 import Error
@@ -18,7 +22,10 @@ from sqlite3 import Error
 #board.SCL and board.SDA to use the built-in STEMMA QT connector
 i2c_bus=board=board.I2C()
 
+#soil sensor
 ss=Seesaw(i2c_bus, addr=0x36)
+#light sensor
+ls=adafruit_tsl2591.TSL2591(i2c_bus)
 
 def create_connection(irrigation_db):
     """creates a database connection to a SQLIte database """
@@ -84,13 +91,18 @@ if __name__=='__main__':
             print("Database exists, SQLITE connection open)")
             touch=ss.moisture_read()
             temp=ss.get_temp()
+            ts=adafruit_sht4x.SHT4x(i2c_bus)
+            tempts=ts.temperature
+            lux=ls.lux
+            print("Temperature:" +str(tempts))
             print("Moisture:" +str(touch))
+            print("Light (lux): {0}".format(ls.lux))
             taken=datetime.now()
             takenconvert=taken.strftime("%d-%m-%Y %H:%M:%S")
             
-            sqlite_insert="""INSERT INTO sensordata (plant_id, soil_capacitive, measured_at) VALUES (?, ?, ?);"""
+            sqlite_insert="""INSERT INTO sensordata (plant_id, soil_capacitive,temperature,light,  measured_at) VALUES (?, ?, ?, ?,  ?);"""
 
-            sensordata=(1, touch, takenconvert)
+            sensordata=(1, touch,tempts,lux, takenconvert)
             cursor.execute(sqlite_insert, sensordata)
             conn.commit()
             conn.close()
