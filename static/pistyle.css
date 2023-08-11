@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+body{background-color: #D8D6CC;}
+
+#banner{
+    background-color: #F4E9E0;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  }
+
+.logo{
+    width: 300px;
+    position: absolute;
+    top: 2%;
+    left: 3%;
+}
+
+.banner-text h1{
+    text-align: center;
+    font-size: 60px;
+    color: #fff;
+    padding-top: 50px;
+    font-family: "Gill Sans MT"
+}
+
+.banner-text p{
+    text-align: center;
+    color: #fff;
+    font-size: 35px;
+    font-family: "Gill Sans MT";
+    font-weight: bold;
+}
+
+#main{
+    background-color: #F4E9E0;
+    background-size: cover;
+    background-position: center;
+    height: 40vh;
+}
+
+.main-text h2{
+    font-family: "Gill Sans MT";
+    color: #010101;
+    font-size: 30px;
+}
+.data h3{
+    text-align: center;
+    padding-top: 50px;
+    font-size: 30px;
+    color: #010101;
+    font-family: "Gill Sans MT";
+}
