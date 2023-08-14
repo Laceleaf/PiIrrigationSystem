@@ -9,6 +9,11 @@ from time import time, sleep, strftime
 from datetime import datetime
 
 import board
+import digitalio
+
+#LCD Display library
+from RPLCD import CharLCD
+import RPi.GPIO as GPIO
 
 import adafruit_sht4x
 import adafruit_tsl2591
@@ -26,6 +31,24 @@ i2c_bus=board=board.I2C()
 ss=Seesaw(i2c_bus, addr=0x36)
 #light sensor
 ls=adafruit_tsl2591.TSL2591(i2c_bus)
+
+#defines format of LCD (here 16x2)
+lcd_columns=16
+lcd_rows=2
+
+#initiating pins for LCD display
+#4 bit mode so only LCD pins D4 to D7 are in use (same order as here in array)
+#I first used gpio.board mode in which the phyiscal pin numbers were used but had to switch to BCM (the gpio numbering)
+#BOARD numbers: RS pin: 37, e pin: 36, D4:D7 - 33, 31, 29, 23
+#BCM numbers using pinout command: rs: 26, e: 16, D4:27 - 13, 6, 5, 11
+lcd=CharLCD(cols=lcd_columns, rows=lcd_rows, pin_rs=26, pin_e=16, pins_data=[13, 6, 5, 11], numbering_mode=GPIO.BCM)
+#above numbering is used as I have had error responses not knowing which numbering format I chose (here I use phyiscal pin position)
+
+#BOARD Mode for LCD
+#lcd=CharLCD(cols=16, rows=2, pin_rs=37, pin_e=35, pins_data=[33, 31, 29, 23],numbering_mode= GPIO.BOARD)
+
+#initializing LCD screen when first started - static
+lcd.write_string("Boot Up Screen")
 
 def create_connection(irrigation_db):
     """creates a database connection to a SQLIte database """
@@ -82,10 +105,13 @@ if __name__=='__main__':
     create_connection(r"/home/molly/Desktop")
 
 #defining SQLite parameters for quicker coding
-
+    lcd.clear()
+    lcd.message="Test"
     while True:
         
         try:
+            lcd.clear()
+            lcd.write_string("Loop")
             conn=sqlite3.connect("irrigation_db")
             cursor=conn.cursor()
             print("Database exists, SQLITE connection open)")
@@ -106,7 +132,7 @@ if __name__=='__main__':
             cursor.execute(sqlite_insert, sensordata)
             conn.commit()
             conn.close()
-            sleep(120)
+            sleep(900) #reads values each 15 minutes
 
         except sqlite3.Error as error:
             print("Error while connecting to db", error)
