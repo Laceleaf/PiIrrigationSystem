@@ -1,5 +1,12 @@
 # PiIrrigationSystem
 
+Raspberry Pi:
+4 Python Modules: 
+Watering Module
+Sensor Modul
+Display Modul
+Webpage Modul with Flask
+
 ![System Diagram](https://github.com/Laceleaf/PiIrrigationSystem/assets/76946697/695cbb23-541e-4308-85ef-a6e750d4c29d)
 
 
