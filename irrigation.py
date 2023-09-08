@@ -59,6 +59,7 @@ def create_connection(irrigation_db):
         print(sqlite3.version)
         print("Database created")
 
+#Creates Plant Table Database
         conn.execute('''
         CREATE TABLE IF NOT EXISTS planttable
         ([plant_id] INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
@@ -70,7 +71,7 @@ def create_connection(irrigation_db):
         FOREIGN KEY (plant_type) 
             REFERENCES plantprofile (plant_type))
         ''')
-
+#Creates Plant Profile Database
         conn.execute('''
         CREATE TABLE IF NOT EXISTS plantprofile
         ([plant_type] INTEGER NOT NULL UNIQUE PRIMARY KEY,
@@ -82,7 +83,7 @@ def create_connection(irrigation_db):
         [ideal_temperature] REAL)
         ''')
 
-
+#Creates Sensor Data Database Table
         conn.execute('''
         CREATE TABLE IF NOT EXISTS sensordata
         ([measurement_id] INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
@@ -95,26 +96,34 @@ def create_connection(irrigation_db):
             REFERENCES planttable (plant_id))
         ''')
 
-    except Error as e:
-         print(e)
+#Creates Pump Database Table
+        conn.execute('''
+        CREATE TABLE IF NOT EXISTS pump
+        ([pump_id] INTEGER NOT NULL UNIQUE PRIMARY KEY,
+        [soil_sensor] INTEGER,
+        FOREIGN KEY (soil_sensor)
+            REFERENCES planttable (soil_sensor))
+        ''')
+    
     finally:
         if conn:
             conn.close()
 
 if __name__=='__main__':
     create_connection(r"/home/molly/Desktop")
-
+    
+    
+#Create 
 #defining SQLite parameters for quicker coding
     lcd.clear()
     lcd.message="Test"
     while True:
         
         try:
-            lcd.clear()
-            lcd.write_string("Loop")
             conn=sqlite3.connect("irrigation_db")
             cursor=conn.cursor()
-            print("Database exists, SQLITE connection open)")
+            lcd.clear()
+            lcd.write_string("Loop")
             touch=ss.moisture_read()
             temp=ss.get_temp()
             ts=adafruit_sht4x.SHT4x(i2c_bus)
