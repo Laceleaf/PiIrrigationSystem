@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<title>Webpage Bewässerungssystem</title>
+	<link rel="stylesheet" href="{static/style.css')}}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap"
+</head>
+<body>
+	<style>
+	.plant-row{
+		background-color: #9bcbb3;
+		height: 400px;
+	}
+	
+	body{
+        font-family: 'League Spartan', sans-serif;
+	}
+	
+    .full-height-col{
+			height: 100%;
+     }
+        
+	</style>
+	
+
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+    <img src="{{ url_for ('static', filename='logo.png')}}" alt="not working" width="150" />
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ url_for ('index')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Kamera Feed</a>
+        </li>
+        <li class="nav-item">
+			<!-- Flask URL generation will be used instead of relative path because it does not seem to properly read -->
+          <a class="nav-link" href="{{ url_for ('about')}}">Über PlaentyPi</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+	
+	 
+   <div class="container">
+	   
+	   <div class="row plant-row justify-content-center align-items-center">
+	   <div class="col-sm-4 offset-2 full-height-col">
+			Pflanze 1
+			<img src="{{ url_for ('static', filename='tomato.png')}}" alt="Tomato" width="80">
+	   </div>
+	   
+		<div class="col-sm-4 offset-2 full-height-col">
+		Pflanze 2
+		<img src="{{ url_for ('static', filename='basil.png')}}" alt="Basil" width="80"/>
+		</div>
+		
+		<div class="col-sm-4 offset-2 full-height-col">	
+		Deine Pflanzenumgebung
+		<p class="text-left">Gemessen um: {{time}} </p>
+		<p class="text-left">Temperature: {{temp}} </p>
+		<p class="text-left">Licht: {{light}} </p>
+			
+		</div>
+   </div>
+   
+  <div class="container">
+  <div class="row addPlant justifiy-content-center align-items-center">
+	  <div class="col-sm-4 offset-2 full-height-col">
+		Add Plant 
+			<a class="btn btn-light" href="#" role="button">New Plant</a>
+		</div>
+		
+  </div>
+  </div>
+  
+  <div class="container">
+    <div class="row">
+        <div class="col-sm-4 offset-2 full-height-col">
+            Pflanze 1
+            <div class="embed-responsive embed-responsive-16by9">
+                <img src='/plot/soil' class="embed-responsive-item" frameborder="0" scrolling="no" style="height: 400px;"></iframe>
+            </div>
+            <img src="/templates/basil.png" alt="Basil" width="80"/>
+        </div>
+
+    </div>
+</div>
+   
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  
+</body>
+</html>
