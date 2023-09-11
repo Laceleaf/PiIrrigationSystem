@@ -53,32 +53,41 @@
 	 
    <div class="container">
 	   
-	   <div class="row plant-row justify-content-center align-items-center">
-	   <div class="col-sm-4 offset-2 full-height-col">
-			Pflanze 1
-			<img src="{{ url_for ('static', filename='tomato.png')}}" alt="Tomato" width="80">
-	   </div>
-	   
-		<div class="col-sm-4 offset-2 full-height-col">
-		Pflanze 2
-		<img src="{{ url_for ('static', filename='basil.png')}}" alt="Basil" width="80"/>
-		</div>
-		
-		<div class="col-sm-4 offset-2 full-height-col">	
-		Deine Pflanzenumgebung
-		<p class="text-left">Gemessen um: {{time}} </p>
-		<p class="text-left">Temperature: {{temp}} </p>
-		<p class="text-left">Licht: {{light}} </p>
+	   <div class="row plant-row justify-content-left align-items-left">
+	   <div class="col-4 offset-2 full-height-col">
+			<h3> Deine Pflanzen</h3>
+			<div class="row">
+				{% for plant in plants %}
+				<div class="col-md-6 mb-4">
+					<div class="card">
+						<img src="{{ url_for('static', filename=plant_type_images.get(plant[1], 'tomato.png')) }}" class="card-img-top" alt="Plant Type">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{ url_for('plant_detail', plant_name=plant[0]) }}"> {{plant[0]}}</a>
+								</h5>
+							<p class="card-text">Pflanzentyp: {{plant[1]}}</p>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
 			
 		</div>
+		<div class="col-2 text-right">
+				<h3>Deine Pflanzenumgebung</h3>
+		<p class="text-left">Letzte Messung: {{time}} </p>
+		<p class="text-left">Temperature: {{temp}} </p>
+		<p class="text-left">Licht: {{light}} </p>
+		<a class="btn btn-light" href="#" role="button">Pflanze hinzufügen</a>
+			</div>
+	</div>
+</div>
+	   
+			
+		
+		
    </div>
-   
-  <div class="container">
-  <div class="row addPlant justifiy-content-center align-items-center">
-	  <div class="col-sm-4 offset-2 full-height-col">
-		Add Plant 
-			<a class="btn btn-light" href="#" role="button">New Plant</a>
-		</div>
+  
 		
   </div>
   </div>
@@ -90,7 +99,6 @@
             <div class="embed-responsive embed-responsive-16by9">
                 <img src='/plot/soil' class="embed-responsive-item" frameborder="0" scrolling="no" style="height: 400px;"></iframe>
             </div>
-            <img src="/templates/basil.png" alt="Basil" width="80"/>
         </div>
 
     </div>
