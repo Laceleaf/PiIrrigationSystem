@@ -26,7 +26,6 @@
         
 	</style>	
 
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ url_for ('index')}}">
@@ -52,25 +51,13 @@
   </div>
 </nav>
 
+
 <div class="container-fluid pt-3 pb-3">
-  <div class="row">
-      <div class="col-sm-6">
-	<h1>
-	<i class="fa-solid fa-seedling" style="color: #094d14;"></i>
-	Pflanzenname: {{plant_name}} {{IDplant}}</h1>
+    <h2 style="text-align:center">
+     <i class="fa-solid fa-seedling" style="color: #094d14;"></i>
+      Pflanzenname: {{plant_name}} {{plant_id}}</h2>
     
-	<h2> Pflanzentyp: {{plant_type_text.get(1) }}</h2>
-    
-      </div>
-      
-      <div class="col-sm">
-	<h3> Durchschnittliche Bodenfeuchte: {{avSoil}}</h3>
-      </div>
-    
-   
-  
-  </div>
-    
+    <h1> TEst {{IDplant}}</h1>
 </div>
 
    <div class="container-fluid pt-5 pb-5 pr-5 pl-5 my-10 border">
@@ -78,10 +65,10 @@
         <div class="col-sm-4">
 	    <h4>
 	    <i class="fa-solid fa-water" style="color: #6d8aba;"></i>
-	    {{plant_name}}s Bodenfeuchte</h4>
+	    Solas Bodenfeuchte</h4>
             <div class="embed-responsive embed-responsive-16by9">
 	      <!--<a href="{{ url_for('plot_values', plant_id=IDplant)}}">  -->
-                <img src='data:image/png;base64, {{soil_plot}}' class="embed-responsive-item" frameborder="0" scrolling="no" style="height: 400px;">
+                <img src='/plot' class="embed-responsive-item" frameborder="0" scrolling="no" style="height: 400px;">
 	      <!-- </a> -->
 	    </div>
         </div>
@@ -89,18 +76,18 @@
 	<div class="col-sm-4">
             <h4 style="text-align:center"> 
 	      <i class="fa-solid fa-cloud-sun" style="color: #edca1d;"></i>
-	      Sonneneinwirkung auf {{plant_name}}</h4>
+	      Sonneneinwirkung auf Sola</h4>
             <div class="embed-responsive embed-responsive-16by9">
-                <img src='data:image/png;base64, {{light_plot}}' class="embed-responsive-item" frameborder="0" scrolling="no" style="height: 400px;">
+                <img src='/plot/light' class="embed-responsive-item" frameborder="0" scrolling="no" style="height: 400px;">
             </div>
         </div>
 	
 	<div class="col-sm-4">
             <h4 style="text-align:center"> 
 	      <i class="fa-solid fa-temperature-half" style="color: #da8f5d;"></i>
-	      Temperatur um {{plant_name}}</h4>
+	      Temperatur</h4>
             <div class="embed-responsive embed-responsive-16by9">
-                <img src='data:image/png;base64, {{temp_plot}}' class="embed-responsive-item" frameborder="0" scrolling="no" style="height: 400px;">
+                <img src='/plot/temp' class="embed-responsive-item" frameborder="0" scrolling="no" style="height: 400px;">
             </div>
         </div>
 
@@ -109,7 +96,6 @@
   </div>
   
    
-
   
  <footer class="bg-light text-center text-lg-start pt-5">
   <!-- Copyright -->
@@ -136,3 +122,4 @@
   
 </body>
 </html>
+

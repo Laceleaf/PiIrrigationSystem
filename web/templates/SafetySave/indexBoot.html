@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<title>PlæntyPi</title>
+	<link rel="shortcut icon" type="x-icon" href="{{ url_for ('static', filename='tabLogo.png')}}">
+	<link rel="stylesheet" href="{static/style.css')}}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap"
+</head>
+<body>
+	<style>
+	.container{
+		background-color: #9bcbb3;
+		height: 200x;
+	}
+	
+	body{
+		background-color: #f3fbf3
+        font-family: 'League Spartan', sans-serif;
+	}
+	
+    .full-height-col{
+			height: 100%;
+     }
+        
+	</style>
+	
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for ('index')}}" >
+    <img src="{{ url_for ('static', filename='logo.png')}}" alt="not working" width="80"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ url_for ('index')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for ('about')}}">Kamera Feed</a>
+        </li>
+        <li class="nav-item">
+			<!-- Flask URL generation will be used instead of relative path because it does not seem to properly read -->
+          <a class="nav-link" href="#">Über PlaentyPi</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+	
+	 
+   <div class="container">
+	   
+	   <div class="row plant-row justify-content-left align-items-left">
+	   <div class="col-4 offset-2 full-height-col">
+			<h3> Deine Pflanzen</h3>
+			<div class="row">
+				{% for plant in plants %}
+				<div class="col-md-6 mb-4">
+					<div class="card">
+						<img src="{{ url_for('static', filename=plant_type_images.get(plant[1], 'plant.png')) }}" class="card-img-top" alt="Plant Type">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{ url_for('plant_detail', plant_name=plant[0]) }}"> {{plant[0]}}</a>
+								</h5>
+							<p class="card-text">Pflanzentyp: {{plant[1]}}</p>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			
+		</div>
+		<div class="col-2 text-right">
+				<h3>Deine Pflanzenumgebung</h3>
+		<p class="text-left">Letzte Messung: {{time}} </p>
+		<p class="text-left">Temperature: {{temp}} </p>
+		<p class="text-left">Licht: {{light}} </p>
+		<a class="btn btn-light" href="{{ url_for ('add_plant')}}" role="button">Pflanze hinzufügen</a>
+			</div>
+	</div>
+</div>
+	   
+			
+		
+		
+   </div>
+  
+		
+
+<!--Uncomment this for shorter footer <div class="container my-5"> -->
+
+  <footer class="text-center text-white" style="background-color: #f1f1f1;">
+  <!-- Grid container -->
+  <div class="container pt-4">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+    
+
+      <!-- Fuas -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-dark m-1"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-google"></i
+      ></a>
+
+     
+      <!-- Github -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-dark m-1"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2023 Copyright:
+    <a class="text-dark" href="https://mdbootstrap.com/">Amalie Wilke </a>
+  </div>
+  <!-- Copyright -->
+</footer>
+  
+<!-- </div>  -->
+   
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  
+</body>
+</html>

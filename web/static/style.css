@@ -4,8 +4,16 @@
 }
 
 
-body{
-	background-color: #F3FBF3;
-	font-family:"League Spartan", sans-serif;
-	}
+.navbar-brand {
+
+	display:flex;
+	position: absolute;
+	width: 95px;
+			}
+
+	
+body {
+		font-family: 'League Spartan', sans-serif;
+		background-color: #9bcbb3;
+	 }	
 
