@@ -33,8 +33,7 @@ def retrieve_value(conn):
 		plant_id=int(plant_id)
 		print(plant_id)
 		soil_capacitive=int(soil_capacitive)
-		
-		#if soil_capacitive
+
 		
 		return plant_id, soil_capacitive
 		
