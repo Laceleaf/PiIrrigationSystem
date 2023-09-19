@@ -31,7 +31,6 @@ def retrieve_value(conn):
 		
 		plant_id, soil_capacitive=result[0]
 		plant_id=int(plant_id)
-		print("Die PflanzenId ist:")
 		print(plant_id)
 		soil_capacitive=int(soil_capacitive)
 
@@ -53,26 +52,24 @@ def compare_value(conn, plantID, soil_capacitive):
 	
 	if result:
 		plantType=result[0]
-		
 		plantType=int(plantType)
-		print("Pflanzentyp:")
+		print("Converted Plant Type:")
 		print(plantType)
 		cursor.execute(sqlite_select_plantprofile, (plantType,))
 		ideal=cursor.fetchone()
 			
 		soil=ideal[0]
 		soil=int(soil)
-		print("Die ideale Bodenfeuchte nach Pflanzentyp ist:")
+		print("Ideal Soil Moisture:")
 		print(soil)
 		
 		if soil_capacitive < soil:
 			try:
-				print("Pflanze wird gewässert, da Ideal höher")
 				motor_on(channel)
-				time.sleep(10)
+				time.sleep(5) #5 Seconds more appropriate than 10 seconds
 				motor_off(channel)
 				time.sleep(1)
-				GPIO.cleanup()
+				
 			except KeyboardInterrupt:
 				GPIO.cleanup()
 				pass
@@ -83,14 +80,32 @@ def compare_value(conn, plantID, soil_capacitive):
 	
 if __name__=='__main__':
 	
-	conn=sqlite3.connect(db_path)
+	try:
 	
-	result=retrieve_value(conn)
+		while True:
+	
+			conn=sqlite3.connect(db_path)
+			
+			result=retrieve_value(conn)
 
-	plantID=int(result[0])
-	actualSoil=int(result[1])
-	print(actualSoil)
-    
-	compare_value(conn, plantID, actualSoil)
-    
-	conn.close()
+			plantID=int(result[0])
+			actualSoil=int(result[1])
+			print(actualSoil)
+			
+			compare_value(conn, plantID, actualSoil)
+			
+			conn.close()
+			time.sleep(3600)
+		
+	except KeyboardInterrupt:
+		try:
+			conn.close()
+		except NameError:
+			pass
+		finally:
+			#reset GPIO
+			GPIO.cleanup()
+			print("Loop terminated by keyboard interrupt")
+		
+	
+		
