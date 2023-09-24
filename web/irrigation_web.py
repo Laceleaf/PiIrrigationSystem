@@ -2,7 +2,7 @@
 #Amalie Wilke
 #8.9.2023
 
-from flask import Flask, render_template, send_file, make_response, request, redirect, url_for, request
+from flask import Flask, render_template, send_file, make_response, request, redirect, url_for, request, Response
 from matplotlib.figure import Figure
 import base64
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -11,7 +11,7 @@ from time import time
 from datetime import datetime
 
 #from camera import VideoCamera
-import os
+import picamera
 
 import io
 
@@ -28,12 +28,18 @@ sqlite_select_WHERE_plantname="""SELECT plant_id FROM planttable WHERE plant_nam
 sqlite_insert_planttable="""INSERT INTO planttable (plant_type, soil_sensor, plant_name, created_at, watered) VALUES (?, ? ,?, ?, ?)"""
 
 
-#def gen(camera):
-#	#ger camera frame
-#	while True:
-#		frame=camera.get_frame()
-#		yield(b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-		
+#Method to generate camera frames for livestream
+def generateFrames():
+    with picamera.PiCamera() as camera:
+        camera.resolution=(640, 480)
+        camera.framerate=30
+
+        while True:
+            frame=io.BytesIO()
+            camera.capture(frame, 'jpeg', use_video_port=True)
+            yield(b'--frame\r\n'b'content-Type: image/jpeg\r\n\r\n' + frame.getvalue() + b'\r\n')
+    
+
 
 #get most current data from database irrigation_db
 def currentData():
@@ -191,6 +197,10 @@ def index(): #index view function to return result of calling render_template wi
 @app.route('/about')
 def about():
 	return render_template('about.html')
+
+@app.route('/camera')
+def camera():
+    return render_template('camera.html')
 
 #@app.route('/videofeed')
 #def video_feed():
@@ -420,6 +430,10 @@ def plot_temp():
 		
 	#return "Invalid or missing Plant ID"
 		
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(generateFrames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 	
 
 
