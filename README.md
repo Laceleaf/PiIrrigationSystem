@@ -39,3 +39,11 @@ To execute the system, run the script in following order via Raspberry Pi termin
 3. Switch to the directory web and then execute the script with sudo:
    sudo python3 irrigation_web.py
 
+   Help with setting up the sensors used:
+1. Adafruit STEMMA Soil Sensor
+2. TSL2591 Light Sensor
+3. SHT40 Temperatur (and humidity) Sensor
+4. Waterpump (DC) with 5 Volt Relay and 12 Volt power supply
+
+   ![SensorenaufbauInstallationshilfe](https://github.com/Laceleaf/PiIrrigationSystem/assets/76946697/3517a6e5-36aa-4245-b013-d1a109871d08)
+
