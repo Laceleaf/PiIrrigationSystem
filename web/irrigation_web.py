@@ -1,6 +1,8 @@
-#basic Flask webpage to display plants in Sqlite database and the sensor values attached to them
-#Amalie Wilke
-#8.9.2023
+#Flask webpage to display plants in Sqlite database and the sensor values attached to them
+#HTML templates were created using bootstrap elements
+#author: Amalie Wilke
+#Creation date: 8.9.2023
+#Last update: 24.09.23
 
 from flask import Flask, render_template, send_file, make_response, request, redirect, url_for, request, Response
 from matplotlib.figure import Figure
