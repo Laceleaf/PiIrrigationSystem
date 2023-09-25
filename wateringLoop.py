@@ -1,3 +1,8 @@
+#Python script to set up a GPIO pin 21 on Raspberry Pi (using Broadcom numbering) to send signal to 
+#water pump via a relay if most recent soil moisture in irrigation database is below ideal value
+#Program runs on True loop but can be interrupted by keyboard interrupt
+#author: Amalie Wilke
+
 import RPi.GPIO as GPIO
 import time
 import sqlite3
