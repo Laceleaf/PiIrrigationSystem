@@ -1,3 +1,7 @@
+#Non looped script to activiate water pump via relay attached to GPIO Pin 40 (Broadcom: 21)
+#Database is checked for most current soil moisture, if value below ideal, pump is activated
+#author: Amalie Wilke
+
 import RPi.GPIO as GPIO
 import time
 import sqlite3
