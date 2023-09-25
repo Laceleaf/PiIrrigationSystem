@@ -1,4 +1,6 @@
-#LCD Display - the most annoying cable connected pieces of them all
+#Script to acitivate a 16x2 LCD display in 4 Bit mode
+#Current values from database are pulled and displayed
+#author: Amalie Wilke
 
 from RPLCD import CharLCD
 import RPi.GPIO as GPIO
