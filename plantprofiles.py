@@ -1,4 +1,6 @@
 #Creates plant profiles and test plants for the SQLite DB
+#author: Amalie Wilke
+
 from time import time, sleep, strftime
 from datetime import datetime
 import sqlite3
