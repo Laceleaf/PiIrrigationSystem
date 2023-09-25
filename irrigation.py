@@ -1,10 +1,12 @@
-#Program to read different plant data (soil humidity, light, temperature) from a#plant using sensors connected to a Raspberry Pi
-#The data is then inserted into a Sqlite database on the Raspberry. The database#is created within the code if it does not yet exist
-#Date: 7.8.2023
+#Program to read different plant data (soil humidity, light, temperature) from a plant using sensors connected to a Raspberry Pi
+#The data is then inserted into a Sqlite database on the Raspberry. The database is created within the code if it does not yet exist
+#Creation date: 7.8.2023
+#Last update: 23.09.2023
 #Author: Amalie Wilke
 #Code for sensors taken (and expanded on) from ladyada for Adafruit Industries
-#Connection for Soil Sensor and Tempearture: I2C
+#Interface for Soil moisture, light and tempearture sensor: I2C
 
+#Initialisierung des I2C-Busses und Laden der benötigen Module für die Sensoren
 from time import time, sleep, strftime
 from datetime import datetime
 
@@ -25,7 +27,7 @@ import sqlite3
 from sqlite3 import Error
 
 #board.SCL and board.SDA to use the built-in STEMMA QT connector
-i2c_bus=board=board.I2C()
+i2c_bus=board.I2C()
 
 #soil sensor
 ss=Seesaw(i2c_bus, addr=0x36)
@@ -131,6 +133,8 @@ if __name__=='__main__':
             lux=ls.lux
             print("Temperature:" +str(tempts))
             print("Moisture:" +str(touch))
+
+            #This returns {0} which is the lux value 
             print("Light (lux): {0}".format(ls.lux))
             taken=datetime.now()
             takenconvert=taken.strftime("%d-%m-%Y %H:%M:%S")
